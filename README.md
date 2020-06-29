@@ -1,2 +1,3 @@
 # DSP-Box
-A tool for learning audio DSP concepts in Rust
+A tool for learning and prototyping audio DSP concepts in Rust
+### WIP
