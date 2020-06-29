@@ -61,12 +61,31 @@ impl Range {
         Range::Int(IntRange::new(min, max))
     }
 
-    pub fn db(min: f32, max: f32) -> Self {
-        Range::DB(DBRange::new(min, max, iced_audio::Normal::center()))
+    pub fn db(min: f32, max: f32, zero_db_pos: ZeroDBPos) -> Self {
+        let zero_pos = match zero_db_pos {
+            ZeroDBPos::Center => iced_audio::Normal::center(),
+            ZeroDBPos::Min => iced_audio::Normal::min(),
+            ZeroDBPos::Max => iced_audio::Normal::max(),
+            ZeroDBPos::ThreeFourths => iced_audio::Normal::new(0.75),
+        };
+        Range::DB(DBRange::new(min, max, zero_pos))
     }
 
     pub fn freq(min: f32, max: f32) -> Self {
         Range::Freq(FreqRange::new(min, max))
+    }
+}
+
+pub enum ZeroDBPos {
+    Center,
+    Min,
+    Max,
+    ThreeFourths,
+}
+
+impl Default for ZeroDBPos {
+    fn default() -> Self {
+        ZeroDBPos::Center
     }
 }
 

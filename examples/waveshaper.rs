@@ -1,6 +1,6 @@
 extern crate dsp_box;
 
-use dsp_box::{Knob, Range};
+use dsp_box::{Knob, Range, ZeroDBPos};
 
 static ONE_OVER_20: f32 = 1.0 / 20.0;
 #[inline]
@@ -69,14 +69,14 @@ pub fn main() {
         label: "Input Gain",
         value: 0.0,
         default_value: 0.0,
-        range: Range::db(-24.0, 24.0),
+        range: Range::db(-24.0, 24.0, ZeroDBPos::Center),
     });
 
     gui_setup.push_knob(Knob {
         label: "Output Gain",
         value: -6.0,
         default_value: 0.0,
-        range: Range::db(-24.0, 24.0),
+        range: Range::db(-24.0, 24.0, ZeroDBPos::Center),
     });
 
     dsp_box::run(Box::new(Waveshaper::new()), gui_setup);
